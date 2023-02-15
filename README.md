@@ -5,10 +5,10 @@ Proof of concept for search engine using websockets in comparison with a REST ap
 ## Set up
 
 ```bash
+# get movie list from https://github.com/metpallyv/MovieRecommendation
+curl -o ./tmp/movies.txt https://raw.githubusercontent.com/metpallyv/MovieRecommendation/master/movies.txt
+# install dependencies
 npm install
-npm run dev # run in development mode
+# run in development mode
+npm run dev
 ```
-
-## Movie list
-
-Source: https://github.com/metpallyv/MovieRecommendation
