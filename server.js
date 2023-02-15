@@ -1,9 +1,13 @@
 import express from 'express'
 import { findMovies } from './lib/movies.js'
+import morgan from 'morgan'
 
 const port = process.env.PORT || 3000
 
 const app = express()
+
+// middlewares
+app.use(morgan('tiny'))
 
 // routes
 app.get('/movies', async (req, res) => {
