@@ -1,6 +1,7 @@
+import cors from 'cors'
 import express from 'express'
-import { findMovies } from './lib/movies.js'
 import morgan from 'morgan'
+import { findMovies } from './lib/movies.js'
 
 const port = process.env.PORT || 3000
 
@@ -8,6 +9,7 @@ const app = express()
 
 // middlewares
 app.use(morgan('tiny'))
+app.use(cors({ credentials: true, origin: '*' }))
 
 // routes
 app.get('/movies', async (req, res) => {
