@@ -9,7 +9,9 @@ const port = process.env.PORT || 3000
 
 const app = express()
 const httpServer = createServer(app)
-const io = new IoServer(httpServer)
+const io = new IoServer(httpServer, {
+  cors: { origin: '*' }
+})
 
 // middlewares
 app.use(morgan('tiny'))
@@ -24,14 +26,16 @@ app.get('/movies', async (req, res) => {
 })
 
 // socket io connections
-io.on('connection', (socket) => {
-  console.log('Client connected')
+io
+  .of('/socket.io')
+  .on('connection', (socket) => {
+    console.log('Client connected')
 
-  socket.on('search', async (search) => {
-    const results = await findMovies(search)
-    socket.emit('results', results)
+    socket.on('search', async (search, callback) => {
+      const results = await findMovies(search)
+      callback(results)
+    })
   })
-})
 
 // start server on provided port
 httpServer.listen(port, () => {
