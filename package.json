@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "inspect": "node inspect server.js",
+    "lint": "eslint .",
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +18,8 @@
     "socket.io": "^4.6.0"
   },
   "devDependencies": {
+    "eslint": "^8.34.0",
+    "eslint-config-standard": "^17.0.0",
     "nodemon": "^2.0.20"
   }
 }
