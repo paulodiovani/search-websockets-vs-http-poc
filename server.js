@@ -1,11 +1,15 @@
 import cors from 'cors'
 import express from 'express'
 import morgan from 'morgan'
+import { Server as IoServer } from 'socket.io'
+import { createServer } from 'http'
 import { findMovies } from './lib/movies.js'
 
 const port = process.env.PORT || 3000
 
 const app = express()
+const httpServer = createServer(app)
+const io = new IoServer(httpServer)
 
 // middlewares
 app.use(morgan('tiny'))
@@ -19,7 +23,17 @@ app.get('/movies', async (req, res) => {
   res.json(results)
 })
 
+// socket io connections
+io.on('connection', (socket) => {
+  console.log('Client connected')
+
+  socket.on('search', async (search) => {
+    const results = await findMovies(search)
+    socket.emit('results', results)
+  })
+})
+
 // start server on provided port
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`Listening on port ${port}`)
 })
