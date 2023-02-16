@@ -27,7 +27,7 @@ app.get('/movies', async (req, res) => {
 
 // socket io connections
 io
-  .of('/socket.io')
+  .of('/socket')
   .on('connection', (socket) => {
     console.log('Client connected')
 
